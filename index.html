@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ko" data-lang="kr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Dynamic Title & Description updated via JS based on data-lang -->
+  <title id="page-title">MONEYSEND | 미국·뉴욕·뉴저지 해외송금 수수료 & 실시간 환율 비교</title>
+  <meta id="page-desc" name="description" content="미국(뉴욕/뉴저지) 한인, 유학생, 비즈니스 고객을 위한 스마트 해외송금 정보 플랫폼. Wise, Remitly, WireBarley 등 주요 간편송금 서비스의 수수료와 환율을 실시간 비교하세요.">
+  <meta id="page-keywords" name="keywords" content="미국 해외송금, 뉴욕 해외송금, 뉴저지 해외송금, 송금정보, 간편송금, 해외송금 수수료 비교, 실시간 환율 비교">
+  
+  <!-- Hreflang & Canonical SEO/AEO Optimization -->
+  <link rel="canonical" href="https://moneysend.com/" />
+  <link rel="alternate" hreflang="ko" href="https://moneysend.com/kr/" />
+  <link rel="alternate" hreflang="en" href="https://moneysend.com/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://moneysend.com/" />
+  
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MONEYSEND">
+  <meta property="og:url" content="https://moneysend.com/">
+  <meta property="og:title" id="og-title" content="MONEYSEND | 미국·뉴욕·뉴저지 해외송금 수수료 & 실시간 환율 비교">
+  <meta property="og:description" id="og-desc" content="미국(뉴욕/뉴저지) 한인, 유학생을 위한 스마트 해외송금 비교. 숨은 수수료 없이 최적의 환율과 수수료를 실시간 확인하세요.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=80">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- AEO Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FinancialProduct",
+    "name": "MONEYSEND Remittance Comparison",
+    "description": "Real-time money transfer fee and exchange rate comparison engine for US to Korea and global remittances.",
+    "provider": {
+      "@type": "Organization",
+      "name": "MONEYSEND",
+      "url": "https://moneysend.com",
+      "email": "support@moneysend.com"
+    },
+    "areaServed": ["US", "NY", "NJ", "KR"]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    <div class="container announcement-content">
+      <span class="pulse-dot"></span>
+      <span data-i18n="announcementText">⚡ [실시간 API 연동] 2026년 기준 Wise, Remitly, WireBarley 최신 환율 & 수수료가 반영되었습니다.</span>
+      <span class="rate-status" id="live-rate-ticker">USD/KRW: 1,348.50 ₩ (+0.12%)</span>
+    </div>
+  </div>
+
+  <!-- Header & Navigation -->
+  <header class="navbar" id="top-navbar">
+    <div class="container nav-container">
+      <a href="#hero" class="logo-group">
+        <div class="logo-icon">💸</div>
+        <span class="logo-text">MONEY<span class="logo-accent">SEND</span></span>
+      </a>
+
+      <nav class="nav-menu" id="nav-menu">
+        <a href="#comparison" class="nav-link" data-i18n="navComparison">실시간 비교</a>
+        <a href="#about" class="nav-link" data-i18n="navAbout">서비스 소개</a>
+        <a href="#guides" class="nav-link" data-i18n="navGuides">송금 가이드</a>
+        <a href="#faq" class="nav-link" data-i18n="navFaq">FAQ</a>
+        <a href="#security" class="nav-link" data-i18n="navSecurity">보안·파트너</a>
+        <a href="#contact" class="nav-link" data-i18n="navContact">고객지원</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Language Switcher UI -->
+        <div class="lang-switcher" id="lang-switcher">
+          <button class="lang-btn active" id="btn-lang-kr" data-lang-target="kr">
+            <span class="flag">🇰🇷</span> KR
+          </button>
+          <button class="lang-btn" id="btn-lang-en" data-lang-target="en">
+            <span class="flag">🇺🇸</span> EN
+          </button>
+        </div>
+
+        <!-- KakaoTalk Quick Consultation Button -->
+        <a href="https://pf.kakao.com" target="_blank" rel="noopener noreferrer" class="btn btn-kakao" id="btn-kakao-consult">
+          <svg class="kakao-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M12 3C6.477 3 2 6.477 2 10.771c0 2.766 1.83 5.19 4.605 6.559-.202.738-.731 2.673-.837 3.093-.131.52.19.513.4.374.165-.11.2.628 2.378-1.614.073-.05 2.19-1.503 3.064-2.1.77.113 1.564.17 2.39.17 5.523 0 10-3.477 10-7.771C22 6.477 17.523 3 12 3z"/>
+          </svg>
+          <span data-i18n="kakaoBtn">카카오톡 1:1</span>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="hamburger" id="hamburger-btn" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Overlay -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="drawer-header">
+      <span class="logo-text">MONEY<span class="logo-accent">SEND</span></span>
+      <button class="close-drawer" id="close-drawer-btn">&times;</button>
+    </div>
+    <div class="drawer-lang">
+      <button class="lang-btn-mobile active" id="m-lang-kr" data-lang-target="kr">🇰🇷 한국어 (KR)</button>
+      <button class="lang-btn-mobile" id="m-lang-en" data-lang-target="en">🇺🇸 English (EN)</button>
+    </div>
+    <div class="drawer-links">
+      <a href="#comparison" class="drawer-link" data-i18n="navComparison">실시간 비교</a>
+      <a href="#about" class="drawer-link" data-i18n="navAbout">서비스 소개</a>
+      <a href="#guides" class="drawer-link" data-i18n="navGuides">송금 가이드</a>
+      <a href="#faq" class="drawer-link" data-i18n="navFaq">FAQ</a>
+      <a href="#security" class="drawer-link" data-i18n="navSecurity">보안·파트너</a>
+      <a href="#contact" class="drawer-link" data-i18n="navContact">고객지원</a>
+    </div>
+    <div class="drawer-footer">
+      <a href="https://pf.kakao.com" target="_blank" class="btn btn-kakao w-full">
+        <span>💬 카카오톡 1:1 빠른 상담</span>
+      </a>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="hero-bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+      </div>
+      <div class="container hero-grid">
+        <!-- Hero Content Left -->
+        <div class="hero-text-content">
+          <!-- Trust Badges -->
+          <div class="trust-badges">
+            <span class="badge badge-glow" data-i18n="badgeApi">⚡ [실시간 API 연동]</span>
+            <span class="badge badge-glow" data-i18n="badgeFee">🔍 [숨은 수수료 0% 추적]</span>
+            <span class="badge badge-glow" data-i18n="badgeObj">🛡️ [100% 객관적 송금정보]</span>
+          </div>
+
+          <!-- Main Headline -->
+          <h1 class="hero-title" data-i18n="heroTitle">
+            더 빠르고, 더 저렴하게!<br>
+            <span class="gradient-text">전 세계 해외송금 실시간 비교</span>
+          </h1>
+
+          <!-- Subheadline -->
+          <p class="hero-sub" data-i18n="heroSub">
+            미국 뉴욕·뉴저지 교민부터 글로벌 송금자까지! 숨은 수수료 없이 100% 객관적인 환율과 수수료를 한눈에 확인하고, 나에게 딱 맞는 간편송금 경로를 찾으세요.
+          </p>
+
+          <!-- Primary & Secondary CTA Buttons -->
+          <div class="hero-cta-group">
+            <a href="#comparison" class="btn btn-primary btn-lg" data-i18n="btnCompare">
+              🚀 실시간 수수료 비교하기
+            </a>
+            <a href="#guides" class="btn btn-secondary btn-lg" data-i18n="btnGuide">
+              📖 초보자 가이드 보기
+            </a>
+          </div>
+
+          <!-- Quick Stats / Trust Indicators -->
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">5+</span>
+              <span class="stat-label" data-i18n="statProviders">주요 송금사 비교</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number">$0</span>
+              <span class="stat-label" data-i18n="statHidden">숨겨진 마진 제로</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number">30sec</span>
+              <span class="stat-label" data-i18n="statRefresh">실시간 데이터 갱신</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Calculator Widget Right -->
+        <div class="hero-calculator-card">
+          <div class="calc-header">
+            <div class="calc-title">
+              <span class="calc-icon">🧮</span>
+              <span data-i18n="calcTitle">실시간 송금 계산기</span>
+            </div>
+            <span class="live-pill"><span class="pulse-dot-sm"></span> LIVE</span>
+          </div>
+
+          <div class="calc-body">
+            <!-- Send Amount Input -->
+            <div class="calc-input-group">
+              <label class="calc-label" data-i18n="calcSendLabel">보내는 금액 (USD)</label>
+              <div class="input-wrapper">
+                <span class="currency-prefix">$</span>
+                <input type="number" id="calc-send-amount" value="1000" min="10" step="50">
+                <span class="currency-tag">USD</span>
+              </div>
+            </div>
+
+            <!-- Target Currency Selection -->
+            <div class="calc-input-group mt-3">
+              <label class="calc-label" data-i18n="calcRecvLabel">받는 국가 / 통화</label>
+              <div class="select-wrapper">
+                <select id="calc-target-currency">
+                  <option value="KRW" selected>🇰🇷 대한민국 (KRW - ₩)</option>
+                  <option value="PHP">🇵🇭 필리핀 (PHP - ₱)</option>
+                  <option value="VND">🇻🇳 베트남 (VND - ₫)</option>
+                  <option value="CNY">🇨🇳 중국 (CNY - ¥)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Calculator Summary Preview -->
+            <div class="calc-preview-box">
+              <div class="preview-row">
+                <span data-i18n="calcMidRate">기준 환율 (Mid-market):</span>
+                <strong id="calc-base-rate-text">1 USD = 1,348.50 KRW</strong>
+              </div>
+              <div class="preview-row highlight-row">
+                <span data-i18n="calcBestResult">최고 수령예정액 (Wise):</span>
+                <strong id="calc-top-payout">1,343,200 KRW</strong>
+              </div>
+              <div class="preview-row">
+                <span data-i18n="calcSavings">은행 대비 절감액:</span>
+                <span class="savings-tag" id="calc-savings-tag">+약 ₩35,400 절약</span>
+              </div>
+            </div>
+
+            <a href="#comparison" class="btn btn-emerald w-full" id="calc-submit-btn" data-i18n="calcCompareBtn">
+              🔍 전체 5개 서비스 비교 결과 보기
+            </a>
+          </div>
+
+          <!-- TOP 3 Quick Recommendation Carousel / Cards -->
+          <div class="hero-top3-box">
+            <div class="top3-title" data-i18n="top3Title">🔥 오늘의 US ➔ 한국 TOP 3 추천</div>
+            <div class="top3-cards" id="hero-top3-cards">
+              <!-- Dynamically populated in app.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REAL-TIME REMITTANCE COMPARISON SECTION -->
+    <section class="section comparison-section" id="comparison">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-subtitle" data-i18n="compSub">REAL-TIME COMPARISON</span>
+          <h2 class="section-title" data-i18n="compTitle">실시간 해외송금 조건 비교</h2>
+          <p class="section-desc" data-i18n="compDesc">
+            Wise, Remitly, WireBarley 등 검증된 핀테크 송금사의 수수료와 환율 마진을 100% 투명하게 공개합니다.
+          </p>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="category-tabs" id="category-tabs">
+          <button class="tab-btn active" data-category="lowest-fee">
+            <span class="tab-icon">🥇</span>
+            <span data-i18n="catLowest">오늘의 최저 수수료</span>
+          </button>
+          <button class="tab-btn" data-category="fastest">
+            <span class="tab-icon">⚡</span>
+            <span data-i18n="catFastest">가장 빠른 송금</span>
+          </button>
+          <button class="tab-btn" data-category="beginner">
+            <span class="tab-icon">🔰</span>
+            <span data-i18n="catBeginner">초보자 인기 추천 (NY/NJ)</span>
+          </button>
+        </div>
+
+        <!-- Amount filter bar inside comparison section -->
+        <div class="filter-toolbar">
+          <div class="filter-group">
+            <label data-i18n="filterAmountLabel">송금 기준 금액:</label>
+            <div class="quick-amount-btns">
+              <button class="amount-btn" data-amt="500">$500</button>
+              <button class="amount-btn active" data-amt="1000">$1,000</button>
+              <button class="amount-btn" data-amt="3000">$3,000</button>
+              <button class="amount-btn" data-amt="5000">$5,000</button>
+            </div>
+          </div>
+          <div class="last-updated-tag">
+            <span class="pulse-dot-sm"></span>
+            <span data-i18n="lastUpdatedText">마지막 업데이트: 방금 전</span>
+          </div>
+        </div>
+
+        <!-- Comparison Cards Grid Container -->
+        <div class="comparison-grid" id="comparison-cards-container">
+          <!-- Dynamically generated comparison cards go here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="section about-section" id="about">
+      <div class="container">
+        <div class="about-card-banner">
+          <div class="about-header">
+            <span class="section-subtitle light" data-i18n="aboutSub">BRAND MISSION</span>
+            <h2 class="about-mission-title" data-i18n="aboutMission">
+              "투명하고 정직한 송금정보로, 전 세계 어디서나 수수료 부담 없는 스마트 금융 라이프를 만들어갑니다."
+            </h2>
+          </div>
+
+          <div class="core-values-grid">
+            <!-- Core Value 1 -->
+            <div class="value-card">
+              <div class="value-icon">📊</div>
+              <h3 class="value-title" data-i18n="val1Title">100% 객관적 데이터</h3>
+              <p class="value-text" data-i18n="val1Desc">특정 송금사에 편향되지 않는 독립적 분석으로 고객에게 가장 유리한 조건을 찾습니다.</p>
+            </div>
+
+            <!-- Core Value 2 -->
+            <div class="value-card">
+              <div class="value-icon">⏱️</div>
+              <h3 class="value-title" data-i18n="val2Title">실시간 환율 반영</h3>
+              <p class="value-text" data-i18n="val2Desc">공식 API 연동을 통해 매 분 단위로 변동하는 최신 환율과 송금 수수료를 실시간 갱신합니다.</p>
+            </div>
+
+            <!-- Core Value 3 -->
+            <div class="value-card">
+              <div class="value-icon">🛡️</div>
+              <h3 class="value-title" data-i18n="val3Title">숨은 수수료 제로 추적</h3>
+              <p class="value-text" data-i18n="val3Desc">고정 수수료뿐 아니라 환율 마진(Spread)까지 합산된 최종 실수령액 기준 객관적 비교를 제공합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REMITTANCE GUIDES SECTION -->
+    <section class="section guides-section" id="guides">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-subtitle" data-i18n="guideSub">REMITTANCE GUIDES & KNOWLEDGE</span>
+          <h2 class="section-title" data-i18n="guideTitle">스마트한 해외송금을 위한 필독 가이드</h2>
+          <p class="section-desc" data-i18n="guideDesc">
+            미국(뉴욕/뉴저지) 한인 및 송금 초보자를 위한 수수료 절감 꿀팁과 안전 송금 팁을 확인하세요.
+          </p>
+        </div>
+
+        <div class="guides-grid">
+          <!-- Guide 1 -->
+          <article class="guide-card" data-guide-id="g1">
+            <div class="guide-img-box">
+              <span class="guide-tag" data-i18n="g1Tag">초보자 필독</span>
+              <img src="https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=600&q=80" alt="Guide 1" class="guide-img">
+            </div>
+            <div class="guide-content">
+              <h3 class="guide-card-title" data-i18n="g1Title">미국 ➔ 한국 첫 해외송금 3분 체크리스트</h3>
+              <p class="guide-card-excerpt" data-i18n="g1Excerpt">
+                SSN, ITIN, 수취인 영문 성명, 계좌번호 확인 등 첫 송금 전 실패 없이 가장 빠르게 완료하는 핵심 체크포인트를 정리했습니다.
+              </p>
+              <button class="btn btn-outline btn-sm open-guide-btn" data-guide-id="g1" data-i18n="btnReadMore">
+                📖 가이드 전문 읽기
+              </button>
+            </div>
+          </article>
+
+          <!-- Guide 2 -->
+          <article class="guide-card" data-guide-id="g2">
+            <div class="guide-img-box">
+              <span class="guide-tag tag-purple" data-i18n="g2Tag">수수료 분석</span>
+              <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80" alt="Guide 2" class="guide-img">
+            </div>
+            <div class="guide-content">
+              <h3 class="guide-card-title" data-i18n="g2Title">시중은행 vs 핀테크 간편송금 수수료 비교</h3>
+              <p class="guide-card-excerpt" data-i18n="g2Excerpt">
+                전보료, 전개 수수료, 수취 수수료가 붙는 은행 송금과 환율 마진 투명 핀테크 서비스의 실질 비용 차이를 철저히 분석합니다.
+              </p>
+              <button class="btn btn-outline btn-sm open-guide-btn" data-guide-id="g2" data-i18n="btnReadMore">
+                📖 가이드 전문 읽기
+              </button>
+            </div>
+          </article>
+
+          <!-- Guide 3 -->
+          <article class="guide-card" data-guide-id="g3">
+            <div class="guide-img-box">
+              <span class="guide-tag tag-green" data-i18n="g3Tag">안전 수칙</span>
+              <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80" alt="Guide 3" class="guide-img">
+            </div>
+            <div class="guide-content">
+              <h3 class="guide-card-title" data-i18n="g3Title">미국 뉴욕·뉴저지 교민을 위한 해외송금 사고 예방법</h3>
+              <p class="guide-card-excerpt" data-i18n="g3Excerpt">
+                개인 간 사금융(환치기)의 위험성과 금융당국 신고 규정을 준수하면서 안전하게 대금 및 생활비를 송금하는 안전수칙 guide.
+              </p>
+              <button class="btn btn-outline btn-sm open-guide-btn" data-guide-id="g3" data-i18n="btnReadMore">
+                📖 가이드 전문 읽기
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section faq-section" id="faq">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-subtitle" data-i18n="faqSub">FREQUENTLY ASKED QUESTIONS</span>
+          <h2 class="section-title" data-i18n="faqTitle">자주 묻는 질문 (FAQ)</h2>
+          <p class="section-desc" data-i18n="faqDesc">
+            MONEYSEND 이용 및 해외송금 비교 서비스에 대해 자주 궁금해하시는 질문을 다룹니다.
+          </p>
+        </div>
+
+        <div class="faq-accordion" id="faq-accordion">
+          <!-- Q1 -->
+          <div class="faq-item">
+            <button class="faq-question" id="faq-q1-btn">
+              <span class="q-icon">Q1.</span>
+              <span data-i18n="q1Text">MONEYSEND에서 직접 송금이 진행되나요?</span>
+              <span class="chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="a1Text">
+                MONEYSEND는 객관적 송금 정보를 제공하는 비교 플랫폼입니다. 직접 고객의 자금을 수납하지 않으며, 실시간 비교 후 최적의 조건에 해당하는 송금 공식 사이트로 안전하게 바로 연결해 드립니다.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="faq-item">
+            <button class="faq-question" id="faq-q2-btn">
+              <span class="q-icon">Q2.</span>
+              <span data-i18n="q2Text">수수료와 환율 정보는 얼마나 자주 업데이트되나요?</span>
+              <span class="chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="a2Text">
+                주요 해외송금 서비스의 공식 API 및 실시간 시장 파트너 데이터를 연동하여 매 분(Minutely) 단위로 최신 환율과 송금 수수료를 실시간 반영하고 있습니다.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="faq-item">
+            <button class="faq-question" id="faq-q3-btn">
+              <span class="q-icon">Q3.</span>
+              <span data-i18n="q3Text">숨겨진 수수료가 있나요?</span>
+              <span class="chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="a3Text">
+                아닙니다! MONEYSEND는 표면적인 고정 수수료 외에도 송금사가 적용하는 환율 마진(Spread)을 포함한 '최종 실수령액'을 계산하므로 숨은 수수료 없이 100% 명확하게 비교할 수 있습니다.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q4 (Bonus) -->
+          <div class="faq-item">
+            <button class="faq-question" id="faq-q4-btn">
+              <span class="q-icon">Q4.</span>
+              <span data-i18n="q4Text">미국 뉴욕·뉴저지에서 한국으로 송금 시 한도가 있나요?</span>
+              <span class="chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="a4Text">
+                송금업체별(Wise, Remitly 등)로 1회 및 연간 송금 한도가 다르며, 한국 외국환거래법 규정에 따라 연간 $50,000 이상 송금 시 수취은행 서류 제출이 필요할 수 있습니다. 가이드 섹션을 참조하세요.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECURITY & PARTNERS SECTION -->
+    <section class="section security-section" id="security">
+      <div class="container">
+        <div class="security-box">
+          <div class="sec-left">
+            <div class="sec-badge-icon">🔒</div>
+            <h3 class="sec-title" data-i18n="secTitle">강력한 보안 및 데이터 보호 약속</h3>
+            <p class="sec-desc" data-i18n="secDesc">
+              MONEYSEND는 256-bit SSL 최고 등급 암호화를 적용하여 고객의 개인정보 및 조회를 보호합니다. 어떠한 경우에도 계좌 비밀번호, 주민번호 등 민감 금융 정보를 수집·저장하지 않습니다.
+            </p>
+          </div>
+          <div class="sec-right">
+            <div class="sec-feature-list">
+              <div class="sec-feat-item">
+                <span class="feat-check">✓</span>
+                <span data-i18n="secF1">256-bit SSL 암호화 적용</span>
+              </div>
+              <div class="sec-feat-item">
+                <span class="feat-check">✓</span>
+                <span data-i18n="secF2">민감 금융 계좌정보 저장 불가</span>
+              </div>
+              <div class="sec-feat-item">
+                <span class="feat-check">✓</span>
+                <span data-i18n="secF3">독립적 100% 객관적 비교 데이터</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partners Showcase -->
+        <div class="partners-block">
+          <h4 class="partners-heading text-center" data-i18n="partnersHeading">비교 대상 공식 해외송금 파트너사</h4>
+          <div class="partners-grid">
+            <div class="partner-card">
+              <img src="https://images.unsplash.com/photo-1616077168079-7e09a677fb2c?auto=format&fit=crop&w=200&q=80" alt="Wise" class="partner-logo-img">
+              <span class="partner-name">Wise</span>
+              <span class="partner-tag">Fintech</span>
+            </div>
+            <div class="partner-card">
+              <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=200&q=80" alt="Remitly" class="partner-logo-img">
+              <span class="partner-name">Remitly</span>
+              <span class="partner-tag">Global Express</span>
+            </div>
+            <div class="partner-card">
+              <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=200&q=80" alt="WireBarley" class="partner-logo-img">
+              <span class="partner-name">WireBarley</span>
+              <span class="partner-tag">US / Korea No.1</span>
+            </div>
+            <div class="partner-card">
+              <img src="https://images.unsplash.com/photo-1607863680198-23d4b2565df0?auto=format&fit=crop&w=200&q=80" alt="Western Union" class="partner-logo-img">
+              <span class="partner-name">Western Union</span>
+              <span class="partner-tag">Worldwide Cash</span>
+            </div>
+            <div class="partner-card">
+              <img src="https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=200&q=80" alt="OFX" class="partner-logo-img">
+              <span class="partner-name">OFX</span>
+              <span class="partner-tag">Large Transfer</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Legal Disclaimer Box -->
+        <div class="disclaimer-box">
+          <span class="disclaimer-icon">⚠️</span>
+          <p class="disclaimer-text" data-i18n="disclaimerText">
+            <strong>Disclaimer:</strong> MONEYSEND는 실시간 송금 환율 및 수수료 정보 비교 플랫폼이며, 직접적인 금융 거래 및 송금을 중개하거나 수수료를 직접 수납하지 않습니다. 실제 송금 계약 및 거래는 각 공식 송금 서비스 사이트에서 진행됩니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT / SUPPORT SECTION -->
+    <section class="section contact-section" id="contact">
+      <div class="container">
+        <div class="contact-grid">
+          <!-- Support Info Left -->
+          <div class="contact-info">
+            <span class="section-subtitle light" data-i18n="contactSub">CUSTOMER SUPPORT</span>
+            <h2 class="contact-title" data-i18n="contactTitle">
+              해외송금 이용 중 궁금한 점이 있으신가요?<br>MONEYSEND가 안내해 드립니다.
+            </h2>
+            <p class="contact-desc" data-i18n="contactDesc">
+              서비스 제휴, 정보 수정 문의, 이용 가이드 관련 등 궁금한 점을 언제든 남겨주시면 빠르게 답변드립니다.
+            </p>
+
+            <div class="contact-details-list">
+              <div class="contact-detail-item">
+                <div class="c-icon">📧</div>
+                <div>
+                  <div class="c-label" data-i18n="cEmailLabel">이메일 문의</div>
+                  <div class="c-val"><a href="mailto:support@moneysend.com">support@moneysend.com</a></div>
+                </div>
+              </div>
+
+              <div class="contact-detail-item">
+                <div class="c-icon">💬</div>
+                <div>
+                  <div class="c-label" data-i18n="cKakaoLabel">카카오톡 / 실시간 채팅</div>
+                  <div class="c-val">카카오톡 채널 <strong class="kakao-yellow">@MONEYSEND</strong></div>
+                </div>
+              </div>
+
+              <div class="contact-detail-item">
+                <div class="c-icon">🕒</div>
+                <div>
+                  <div class="c-label" data-i18n="cHoursLabel">운영 시간</div>
+                  <div class="c-val" data-i18n="cHoursVal">월 ~ 금 09:00 - 18:00 (EST) / 24시간 온라인 접수</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form Right -->
+          <div class="contact-form-card">
+            <h3 class="form-title" data-i18n="formTitle">온라인 문의 접수</h3>
+            <form id="contact-form">
+              <div class="form-group">
+                <label for="form-name" data-i18n="formNameLabel">이름 (Name)</label>
+                <input type="text" id="form-name" required placeholder="홍길동 / John Doe">
+              </div>
+
+              <div class="form-group">
+                <label for="form-email" data-i18n="formEmailLabel">이메일 주소 (Email)</label>
+                <input type="email" id="form-email" required placeholder="example@moneysend.com">
+              </div>
+
+              <div class="form-group">
+                <label for="form-category" data-i18n="formCatLabel">문의 유형 (Category)</label>
+                <select id="form-category" required>
+                  <option value="service" data-i18n="optService">송금 서비스 문의 (Service Inquiry)</option>
+                  <option value="partnership" data-i18n="optPartner">제휴 문의 (Partnership)</option>
+                  <option value="bug" data-i18n="optBug">오류 제보 (Bug Report)</option>
+                  <option value="other" data-i18n="optOther">기타 (Other)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="form-message" data-i18n="formMsgLabel">문의 내용 (Message)</label>
+                <textarea id="form-message" rows="4" required placeholder="궁금하신 내용을 입력해주세요..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-full" data-i18n="formSubmitBtn">
+                📩 문의하기 (Submit Inquiry)
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#hero" class="logo-group">
+          <div class="logo-icon">💸</div>
+          <span class="logo-text">MONEY<span class="logo-accent">SEND</span></span>
+        </a>
+        <p class="footer-brand-desc" data-i18n="footerDesc">
+          미국(뉴욕/뉴저지) 교민 & 글로벌 사용자를 위한 투명한 해외송금 실시간 비교 플랫폼.
+        </p>
+        <div class="footer-lang-switcher">
+          <span data-i18n="footerLangTitle">언어 선택:</span>
+          <button class="footer-lang-btn active" id="f-lang-kr" data-lang-target="kr">🇰🇷 한국어</button>
+          <button class="footer-lang-btn" id="f-lang-en" data-lang-target="en">🇺🇸 English</button>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-col-title" data-i18n="footNavTitle">빠른 이동</h4>
+        <ul class="footer-links">
+          <li><a href="#comparison" data-i18n="navComparison">실시간 비교</a></li>
+          <li><a href="#about" data-i18n="navAbout">서비스 소개</a></li>
+          <li><a href="#guides" data-i18n="navGuides">송금 가이드</a></li>
+          <li><a href="#faq" data-i18n="navFaq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-col-title" data-i18n="footSecTitle">보안 & 규정</h4>
+        <ul class="footer-links">
+          <li><a href="#security" data-i18n="navSecurity">보안 및 파트너</a></li>
+          <li><a href="#security" data-i18n="footPrivacy">개인정보 처리방침</a></li>
+          <li><a href="#security" data-i18n="footTerms">이용약관</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-col-title" data-i18n="footContactTitle">고객 지원</h4>
+        <p class="footer-info-text">
+          Email: <a href="mailto:support@moneysend.com">support@moneysend.com</a><br>
+          Hours: Mon-Fri 09:00-18:00 EST<br>
+          KakaoTalk: @MONEYSEND
+        </p>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>&copy; 2026 MONEYSEND. All Rights Reserved. Designed for US & Global Remitters.</p>
+    </div>
+  </footer>
+
+  <!-- MODAL: FEE DETAILS BREAKDOWN -->
+  <div class="modal-overlay" id="fee-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="fee-modal-title">Wise 수수료 상세 내역</h3>
+        <button class="modal-close" id="close-fee-modal">&times;</button>
+      </div>
+      <div class="modal-body" id="fee-modal-content">
+        <!-- Filled dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="modal-close-btn" data-i18n="modalClose">닫기</button>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="modal-visit-btn" data-i18n="modalVisit">공식 사이트 바로가기 ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: FULL GUIDE READER -->
+  <div class="modal-overlay" id="guide-modal">
+    <div class="modal-card modal-card-lg">
+      <div class="modal-header">
+        <h3 id="guide-modal-title">가이드 제목</h3>
+        <button class="modal-close" id="close-guide-modal">&times;</button>
+      </div>
+      <div class="modal-body guide-reader-body" id="guide-modal-content">
+        <!-- Filled dynamically based on language -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="guide-close-btn" data-i18n="modalClose">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>
