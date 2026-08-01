@@ -18,7 +18,7 @@
         name: 'Wise',
         logo: '💳',
         fee: 4.50,
-        spreadPct: 0.0035, // 0.35%
+        spreadPct: 0.00, // Wise는 Mid-market 환율 적용 (환율 마진 0%)
         speed: { kr: '약 30분 내 입금 (실시간)', en: 'In ~30 mins (Instant)' },
         rating: 4.9,
         officialUrl: 'https://wise.com',
@@ -728,6 +728,48 @@
     }, 4000);
   }
 
+  // Fetch Real-time Exchange Rates & Fees from API (/api/rates)
+  async function fetchLiveRates() {
+    try {
+      const res = await fetch('/api/rates');
+      if (!res.ok) {
+        throw new Error(`API response error: status ${res.status}`);
+      }
+      const data = await res.json();
+      
+      if (data && data.providers && data.providers.wise) {
+        const wiseData = data.providers.wise;
+        
+        // 1. Wise 실시간 환율 (Mid-market) 반영
+        if (typeof wiseData.rate === 'number' && wiseData.rate > 0) {
+          state.baseRate = wiseData.rate;
+        }
+
+        // 2. Wise 실시간 수수료 및 spread 반영
+        const wiseProvider = state.providers.find(p => p.id === 'wise');
+        if (wiseProvider) {
+          if (typeof wiseData.fee === 'number') {
+            wiseProvider.fee = wiseData.fee;
+          }
+          wiseProvider.spreadPct = 0.00;
+        }
+
+        // 3. 상단 라이브 티커 업데이트
+        const ticker = document.getElementById('live-rate-ticker');
+        if (ticker) {
+          ticker.innerText = `USD/KRW: ${state.baseRate.toFixed(2)} ₩ (Wise API 실시간)`;
+        }
+
+        // 4. 계산기, TOP 3, 서비스 비교 카드 UI 실시간 갱신
+        renderCalculatorPreview();
+        renderTop3Cards();
+        renderComparisonCards();
+      }
+    } catch (error) {
+      console.warn('Wise 실시간 API 환율 로드 실패 (기본 환율 사용):', error);
+    }
+  }
+
   // Event Listeners Setup
   function setupEventListeners() {
     // Language Switchers
@@ -850,23 +892,14 @@
         contactForm.reset();
       });
     }
-
-    // Live Rate Simulation Ticker (Simulates live market micro-fluctuation)
-    setInterval(() => {
-      const delta = (Math.random() - 0.5) * 0.4;
-      state.baseRate = parseFloat((state.baseRate + delta).toFixed(2));
-      const ticker = document.getElementById('live-rate-ticker');
-      if (ticker) {
-        ticker.innerText = `USD/KRW: ${formatNumber(state.baseRate)} ₩ (${delta >= 0 ? '+' : ''}${delta.toFixed(2)})`;
-      }
-      renderCalculatorPreview();
-    }, 15000);
   }
 
   // Initialize Application
   function init() {
     setupEventListeners();
     updateLanguage('kr'); // Default KR
+    fetchLiveRates(); // Fetch real-time Wise API rates on load
+    setInterval(fetchLiveRates, 60000); // 1분 주기로 실시간 환율 갱신
   }
 
   document.addEventListener('DOMContentLoaded', init);
