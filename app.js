@@ -102,6 +102,7 @@
       kakaoBtn: '카카오톡 1:1',
 
       // Hero
+      badgeBeta: '🧪 [BETA 테스트 중]',
       badgeApi: '⚡ [실시간 API 연동]',
       badgeFee: '🔍 [숨은 수수료 0% 추적]',
       badgeObj: '🛡️ [100% 객관적 송금정보]',
@@ -236,6 +237,7 @@
       kakaoBtn: 'Kakao 1:1',
 
       // Hero
+      badgeBeta: '🧪 [BETA Testing Mode]',
       badgeApi: '⚡ [Real-Time API]',
       badgeFee: '🔍 [0% Hidden Fees]',
       badgeObj: '🛡️ [100% Unbiased Info]',
@@ -731,7 +733,7 @@
   // Fetch Real-time Exchange Rates & Fees from API (/api/rates)
   async function fetchLiveRates() {
     try {
-      const res = await fetch('/api/rates');
+      const res = await fetch('https://moneysend.vercel.app/api/rates');
       if (!res.ok) {
         throw new Error(`API response error: status ${res.status}`);
       }
