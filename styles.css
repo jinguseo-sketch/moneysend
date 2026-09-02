@@ -80,8 +80,30 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   ANNOUNCEMENT BAR & NAVBAR
+   TOP BETA BANNER, ANNOUNCEMENT BAR & NAVBAR
    ========================================================================== */
+
+.top-beta-banner {
+  background-color: #fffbe6;
+  border-bottom: 1px solid #ffe58f;
+  color: #d48806;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 6px 0;
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+
+.top-beta-banner-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.beta-icon {
+  font-size: 0.85rem;
+}
 
 .announcement-bar {
   background: linear-gradient(90deg, #0f172a 0%, #1e3a8a 100%);

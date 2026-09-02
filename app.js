@@ -92,6 +92,7 @@
       ogDesc: '미국(뉴욕/뉴저지) 한인, 유학생을 위한 스마트 해외송금 비교. 숨은 수수료 없이 최적의 환율과 수수료를 실시간 확인하세요.',
       
       // Top Bar & Nav
+      topBetaNotice: '현재 베타 테스트 중이라 환율이 정확하지 않습니다.',
       announcementText: '⚡ [실시간 API 연동] 2026년 기준 Wise, Remitly, WireBarley 최신 환율 & 수수료가 반영되었습니다.',
       navComparison: '실시간 비교',
       navAbout: '서비스 소개',
@@ -227,6 +228,7 @@
       ogDesc: 'Compare live exchange rates and fees transparently for US expats in NY/NJ. Find your best money transfer route in under a minute.',
 
       // Top Bar & Nav
+      topBetaNotice: 'Notice: Exchange rates may not be exact as the service is currently in beta testing.',
       announcementText: '⚡ [Real-Time API] Updated 2026 live rates for Wise, Remitly, and WireBarley.',
       navComparison: 'Comparison',
       navAbout: 'About Us',
