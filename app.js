@@ -101,6 +101,10 @@
       navSecurity: '보안·파트너',
       navContact: '고객지원',
       kakaoBtn: '카카오톡 1:1',
+      kakaoModalTitle: '💬 카카오톡 1:1 상담 안내',
+      kakaoModalDesc: '카카오톡 친구 추가에서 아래 ID를 검색하여 문의해 주세요.',
+      btnCopyId: '📋 ID 복사하기',
+      btnOpenKakaoApp: '🟡 카카오톡 앱 열기',
 
       // Hero
       badgeBeta: '🧪 [BETA 테스트 중]',
@@ -237,6 +241,10 @@
       navSecurity: 'Security',
       navContact: 'Contact',
       kakaoBtn: 'Kakao 1:1',
+      kakaoModalTitle: '💬 KakaoTalk 1:1 Support Guide',
+      kakaoModalDesc: 'Please search for the ID below in KakaoTalk "Add Friends" to send your inquiry.',
+      btnCopyId: '📋 Copy ID',
+      btnOpenKakaoApp: '🟡 Open KakaoTalk App',
 
       // Hero
       badgeBeta: '🧪 [BETA Testing Mode]',
@@ -859,6 +867,48 @@
     document.getElementById('guide-close-btn')?.addEventListener('click', () => {
       document.getElementById('guide-modal').classList.remove('active');
     });
+
+    // KakaoTalk Consultation Modal Event Listeners
+    document.querySelectorAll('.open-kakao-modal-btn, #btn-kakao-consult').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('mobile-drawer')?.classList.remove('active');
+        document.getElementById('kakao-modal')?.classList.add('active');
+      });
+    });
+
+    document.getElementById('close-kakao-modal')?.addEventListener('click', () => {
+      document.getElementById('kakao-modal')?.classList.remove('active');
+    });
+    document.getElementById('kakao-modal-close-btn')?.addEventListener('click', () => {
+      document.getElementById('kakao-modal')?.classList.remove('active');
+    });
+
+    // Copy KakaoTalk ID to Clipboard
+    document.getElementById('btn-copy-kakao-id')?.addEventListener('click', () => {
+      const kakaoId = 'jinguseo';
+      const isKr = state.currentLang === 'kr';
+      
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(kakaoId).then(() => {
+          showToast(isKr ? '복사되었습니다!' : 'Copied to clipboard!');
+        }).catch(() => {
+          fallbackCopyText(kakaoId, isKr);
+        });
+      } else {
+        fallbackCopyText(kakaoId, isKr);
+      }
+    });
+
+    function fallbackCopyText(text, isKr) {
+      const tempInput = document.createElement('input');
+      tempInput.value = text;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+      showToast(isKr ? '복사되었습니다!' : 'Copied to clipboard!');
+    }
 
     // Close modal on click overlay
     document.querySelectorAll('.modal-overlay').forEach(modal => {
